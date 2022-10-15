@@ -4,9 +4,10 @@ import Dropdown from "./components/Dropdown.jsx";
 import SearchBar from "./components/SearchBar.jsx";
 
 const Page = (props) => {
-
     return (
         <div className="container"
+             style={{backgroundImage: `url("${props.background}"`, backgroundRepeat: 'no-repeat',
+                 backgroundSize: 'cover', backgroundPosition: '100% 0%' }}
              onScroll={() => {
                  console.log("scroll")
              }}

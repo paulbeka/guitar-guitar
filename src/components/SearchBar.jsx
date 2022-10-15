@@ -1,6 +1,7 @@
 import {IconButton, TextField} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
+
 const SearchBar = ({setSearchQuery}) => (
     <form>
         <TextField
@@ -13,6 +14,12 @@ const SearchBar = ({setSearchQuery}) => (
             variant="outlined"
             placeholder="Search..."
             size="small"
+            sx={{
+                borderColor: 'text.primary',
+                color: 'text.primary',
+                bg: 'lightgray',
+                fontFamily: 'body'
+            }}
         />
         <IconButton type="submit" aria-label="search">
             <SearchIcon />
