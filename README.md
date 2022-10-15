@@ -1,7 +1,7 @@
 # guitar-guitar
 guitar-guitar store front
 
-To-Do List
+### To-Do List
 
 - [ ] Front Page (Like the Zara One)
 - [ ] Second Page (All of the Guitar of the specific companies will appear up!)
