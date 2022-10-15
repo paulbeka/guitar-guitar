@@ -50,11 +50,10 @@ function App() {
     <React.StrictMode>
       <div>
         {token != "" && guitarswithsongs != [] &&
-          guitarswithsongs.splice(0,1).map((item) => {
+          guitarswithsongs.map((item) => {
             return (
             <div>
-              {item.skU_ID}
-              <SongRecommendations id={item.spotifyId} token={token} />
+              {<SongRecommendations id={item.spotifyId} token={token} />}
             </div>)
           })
         }

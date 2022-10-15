@@ -8,7 +8,7 @@ app.use(cors());
 
 const port = process.env.PORT || 5000;
 
-// basic string route to prevent Glitch error
+// keep this
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });

@@ -2,25 +2,13 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 
-const getSongFromID = (token, id, setSong) => {
-  axios.request({
-    method: 'get',
-    url: 'http://localhost:5000/songs?id=' + id + "&token=" + token
-  })
-  .then(res => {
-    console.log(res);
-    setSong(res);
-  })
-}
-
 export const SongRecommendations = (props) => {
-  const [song, setSong] = useState(null);
 
-  getSongFromID(props.token, props.id, setSong);
+  const url_id = "https://open.spotify.com/embed/track/" + props.id + "?utm_source=generator";
 
   return (
-    <div>
-      {song}
+    <div style={{}}>
+      <iframe src={url_id} style={{width:"50%", height:"352", border:"None", allow:"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture", loading:"lazy"}} />
     </div>
   )
 };
