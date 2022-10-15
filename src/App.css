@@ -1,3 +1,7 @@
+* {
+  padding: 0;
+  margin: 0;
+}
 .container {  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 0.5fr 2.2fr;
@@ -5,55 +9,18 @@
   grid-auto-flow: row;
   grid-template-areas:
     "logo logo . search search"
-    "guitar-1 guitar-2 guitar-3 guitar-4 guitar-5";
+    "carousel carousel carousel carousel carousel";
+  height: 100vh;
 }
 
-.logo {
-  grid-area: logo; 
-  justify-self: start; 
-  align-self: center; 
-}
+.logo { grid-area: logo; }
 
-.search { 
+.search {
+  align-self: center;
   grid-area: search;
-  justify-self: end; 
-  align-self: center; 
-
- }
-
-.guitar-1 { 
-  grid-area: guitar-1;
-  justify-self: center;
-  align-self: center; 
-
- }
-
-.guitar-2 { 
-  grid-area: guitar-2; 
-  justify-self: center;
-  align-self: center; 
-
 }
 
-.guitar-3 { 
-  grid-area: guitar-3;
+.carousel { 
+  grid-area: carousel; 
   justify-self: center;
-  align-self: center; 
-
- }
-
-.guitar-4 { 
-  grid-area: guitar-4;
-  justify-self: center;
-  align-self: center; 
-
- }
-
-.guitar-5 { 
-  grid-area: guitar-5;
-  justify-self: center;
-  align-self: center; 
-
 }
-
-* {  border: 1px solid black;}
