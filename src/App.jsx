@@ -2,31 +2,33 @@ import axios from 'axios';
 import React, { useState , useEffect} from 'react';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { Arrow } from "./Arrow";
-
+import './App.css';
+import { getAttrib } from "./dataHandling/dataInitialisation.js";
+let guitars = [];
 
 const getItems = () =>
   Array(20)
     .fill(0)
     .map((_, ind) => ({ id: `element-${ind}` }));
 
-function getData(setData) {
-  axios.get("http://localhost:5000/guitars")
-  .then(res => {
-    setData(res.data);
-    console.log(res.data);
-  })
-}
-
 function App() {
   const [items, setItems] = useState(getItems);
   const [selected, setSelected] = useState([]);
-  const [position, setPosition] = useState(0);
-  const [data, setData] = useState([]);
+  const [result, setResult] = useState(null);
 
   // fetch data from server
   useEffect(() => {
-    getData(setData);
+    axios.get('http://localhost:5000/guitars')
+        .then((response) => {
+          setResult(response.data);
+        })
   }, [])
+  if(result === null){
+    return(<div>Loading...</div>)
+  } else {
+    guitars = result;
+  }
+
   const isItemSelected = (id) => !!selected.find((el) => el === id);
 
   const handleClick =
@@ -42,17 +44,32 @@ function App() {
     };
 
   return (
-    <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-      {data.map((item) => (
-        <Card
-          itemId={item.skU_ID} // NOTE: itemId is required for track items
-          title={item.itemName}
-          key={item.skU_ID  }
-          onClick={handleClick(item)}
-          selected={isItemSelected(item)}
-        />
-      ))}
-    </ScrollMenu>
+      <div className="container">
+        <div className='Logo'>
+            <img src='./src/assets/gglogo.png'/>
+        </div>
+        <div className="Searchbar"></div>
+        <div className="Dropdowns">
+          <div className="Color"></div>
+          <div className="Pickup"></div>
+          <div className="Body-Shape"></div>
+          <div className="Search-Type"></div>
+        </div>
+        <div className={'ScrollMenu'}>
+            <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+              {guitars.map((item) => (
+                  <Card
+                      image={item.pictureMain}
+                      itemId={item.skU_ID} // NOTE: itemId is required for track items
+                      title={item.itemName}
+                      key={item.skU_ID  }
+                      onClick={handleClick(item)}
+                      selected={isItemSelected(item)}
+                  />
+              ))}
+            </ScrollMenu>
+        </div>
+      </div>
   );
 }
 
@@ -77,25 +94,28 @@ function RightArrow() {
   );
 }
 
-function Card({ onClick, selected, title, itemId }) {
+function Card({ onClick, selected, title, itemId, image }) {
   const visibility = React.useContext(VisibilityContext);
-
+  const k = 1.2;
   return (
     <div
       onClick={() => onClick(visibility)}
       style={{
-        width: '160px',
+        width: `${k*160}px`,
       }}
       tabIndex={0}
     >
       <div className="card">
+        <img src={image}
+        style={{
+          height: `${k*300}px`,
+          width: `${k*117}px`,
+        }}/>
         <div>{title}</div>
-        <div>visible: {JSON.stringify(!!visibility.isItemVisible(itemId))}</div>
-        <div>selected: {JSON.stringify(!!selected)}</div>
       </div>
       <div
         style={{
-          height: '200px',
+          height: `${k*200}px`,
         }}
       />
     </div>
