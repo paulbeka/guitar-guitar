@@ -1,7 +1,8 @@
 import React from 'react';
+import styles from './Page.module.css';
 const Page = (props) => {
     return (
-        <div className="container"
+        <div className={styles.container}
              style={{
                  backgroundImage: `url("${props.background}"`,
                  backgroundRepeat: 'no-repeat',
@@ -13,12 +14,12 @@ const Page = (props) => {
                  console.log("scroll")
              }}
         >
-            <div className="logo">
+            <div className={styles.logo}>
                 <img src="src/assets/gglogo.png"/>
             </div>
-            <div className="filter">
+            <div className={styles.filter}>
             </div>
-            <div className="content">
+            <div className={styles.content}>
             </div>
         </div>
     )
