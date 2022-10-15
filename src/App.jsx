@@ -10,10 +10,10 @@ import {search} from "./dataHandling/Filtering.js"
 let guitars = [];
 let searchResult = [];
 let outputPrinted = false;
+let output = [];
 let searching = false;
 
 function App() {
-    const [output, setOutput] = useState([]);
     const [input, setInput] = useState();
     const [selected, setSelected] = useState([]);
     const [result, setResult] = useState(null);
@@ -23,7 +23,6 @@ function App() {
             outputPrinted = false;
             searching = true;
             searchResult = search(guitars, input, "Brand Name");
-            rendering(handleClick, isItemSelected, setOutput);
         }
     }, [input])
 
@@ -49,8 +48,33 @@ function App() {
                 : currentSelected.concat(id)
         );
     };
-    rendering(handleClick, isItemSelected, setOutput);
 
+    if (outputPrinted === false) {
+        if (searching) {
+            output = searchResult.map((item) => (
+                <Card
+                    image={item.pictureMain}
+                    itemId={item.skU_ID} // NOTE: itemId is required for track items
+                    title={item.itemName}
+                    brand={item.brandName}
+                    key={item.skU_ID}
+                    onClick={handleClick(item)}
+                    selected={isItemSelected(item)}
+                />))
+        } else {
+            output = guitars.map((item) => (
+                <Card
+                    image={item.pictureMain}
+                    itemId={item.skU_ID} // NOTE: itemId is required for track items
+                    title={item.itemName}
+                    brand={item.brandName}
+                    key={item.skU_ID}
+                    onClick={handleClick(item)}
+                    selected={isItemSelected(item)}
+                />))
+        }
+        outputPrinted = true;
+    }
     return (
         <div className="container">
             <div className='Logo'>
@@ -71,36 +95,7 @@ function App() {
                 </ScrollMenu>
             </div>
         </div>
-    );
-}
-
-function rendering(handleClick, isItemSelected, setOutput) {
-    if (outputPrinted === false) {
-        if (searching) {
-            for (let i = 0; i < searchResult.length; i++) {
-                setOutput(prevState => [...prevState, <Card
-                    image={searchResult[i].pictureMain}
-                    itemId={searchResult[i].skU_ID} // NOTE: itemId is required for track items
-                    title={searchResult[i].itemName}
-                    key={searchResult[i].skU_ID}
-                    onClick={handleClick(searchResult[i])}
-                    selected={isItemSelected(searchResult[i])}
-                />]);
-            }
-        } else {
-            for (let i = 0; i < guitars.length; i++) {
-                setOutput(prevState => [...prevState, <Card
-                    image={guitars[i].pictureMain}
-                    itemId={guitars[i].skU_ID} // NOTE: itemId is required for track items
-                    title={guitars[i].itemName}
-                    key={guitars[i].skU_ID}
-                    onClick={handleClick(guitars[i])}
-                    selected={isItemSelected(guitars[i])}
-                />]);
-            }
-        }
-        outputPrinted = true;
-    }
+    )
 }
 
 function LeftArrow() {
@@ -124,7 +119,7 @@ function RightArrow() {
     );
 }
 
-function Card({onClick, selected, title, itemId, image}) {
+function Card({onClick, selected, title, itemId, image, brand}) {
     const visibility = React.useContext(VisibilityContext);
     const k = 1;
     return (
@@ -142,6 +137,7 @@ function Card({onClick, selected, title, itemId, image}) {
                          width: `${k * 117}px`,
                      }}/>
                 <div>{title}</div>
+                <div>{brand}</div>
                 <div>selected: {JSON.stringify(!!selected)}</div>
             </div>
         </div>
