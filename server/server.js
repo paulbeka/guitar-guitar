@@ -21,15 +21,22 @@ app.get("/guitars", (req, res) => {
 
 app.get("/songs", (req, res) => {
     axios.get("https://api.spotify.com/v1/tracks/" + req.query.id, {
-        headers: {
-        'Authorization' : 'Bearer ' + req.query.token
+    headers: {
+            'Authorization' : 'Bearer ' + req.query.token
         }
     })
     .then(response => {
         res.send(response.data);
     })
     .catch(err => {
-        res.send(err)
+        console.log(err)
+    })
+})
+
+app.get("/guitarswithsongs", (req, res) => {
+    axios.get("https://services.guitarguitar.co.uk/WebService/api/hackathon/guitarswithsongs")
+    .then(response => {
+        res.send(response.data)
     })
 })
 

@@ -28,25 +28,33 @@ function spotifyLogin(setToken) {
   })
 }
 
+function getGuitarsWithSongs(setGuitarsWithSongs) {
+  axios.get("http://localhost:5000/guitarswithsongs")
+  .then(res => {
+    setGuitarsWithSongs(res.data);
+  })
+}
 
 function App() {
   const [data, setData] = useState([]);
   const [token, setToken] = useState("");
+  const [guitarswithsongs, setGuitarsWithSongs] = useState([]);
 
   useEffect(() => {
     getData(setData);
     spotifyLogin(setToken);
+    getGuitarsWithSongs(setGuitarsWithSongs);
   }, [])
 
   return (
     <React.StrictMode>
       <div>
-        {token != "" &&
-          data.splice(0,1).map((item) => {
+        {token != "" && guitarswithsongs != [] &&
+          guitarswithsongs.splice(0,1).map((item) => {
             return (
             <div>
-              {item.itemName}
-              <SongRecommendations id={item.skU_ID} token={token} />
+              {item.skU_ID}
+              <SongRecommendations id={item.spotifyId} token={token} />
             </div>)
           })
         }
