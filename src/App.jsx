@@ -1,26 +1,32 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState , useEffect} from 'react';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
-
 import { Arrow } from "./Arrow";
+
 
 const getItems = () =>
   Array(20)
     .fill(0)
     .map((_, ind) => ({ id: `element-${ind}` }));
 
-function getData() {
+function getData(setData) {
   axios.get("http://localhost:5000/guitars")
   .then(res => {
-    console.log(res);
+    setData(res.data);
+    console.log(res.data);
   })
 }
 
 function App() {
-  const [items, setItems] = React.useState(getItems);
-  const [selected, setSelected] = React.useState([]);
-  const [position, setPosition] = React.useState(0);
+  const [items, setItems] = useState(getItems);
+  const [selected, setSelected] = useState([]);
+  const [position, setPosition] = useState(0);
+  const [data, setData] = useState([]);
 
+  // fetch data from server
+  useEffect(() => {
+    getData(setData);
+  }, [])
   const isItemSelected = (id) => !!selected.find((el) => el === id);
 
   const handleClick =
@@ -37,13 +43,13 @@ function App() {
 
   return (
     <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-      {items.map(({ id }) => (
+      {data.map((item) => (
         <Card
-          itemId={id} // NOTE: itemId is required for track items
-          title={id}
-          key={id}
-          onClick={handleClick(id)}
-          selected={isItemSelected(id)}
+          itemId={item.skU_ID} // NOTE: itemId is required for track items
+          title={item.itemName}
+          key={item.skU_ID  }
+          onClick={handleClick(item)}
+          selected={isItemSelected(item)}
         />
       ))}
     </ScrollMenu>
