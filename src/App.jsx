@@ -55,7 +55,7 @@ function App() {
           <div className="Body-Shape"></div>
           <div className="Search-Type"></div>
         </div>
-        <div className={'ScrollMenu'}>
+        <div className='ScrollMenu'>
             <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
               {guitars.map((item) => (
                   <Card
@@ -113,11 +113,6 @@ function Card({ onClick, selected, title, itemId, image }) {
         }}/>
         <div>{title}</div>
       </div>
-      <div
-        style={{
-          height: `${k*200}px`,
-        }}
-      />
     </div>
   );
 }
