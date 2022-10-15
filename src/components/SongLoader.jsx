@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { SongRecommendations } from './SongRecommendations';
+import { QuestionAnswerRounded } from '@mui/icons-material';
 
 
 function getData(setData) {
@@ -29,9 +30,9 @@ function App() {
   return (
     <div>
       {guitarswithsongs != [] &&
-        guitarswithsongs.map((item) => {
-          return (
+        guitarswithsongs.map((item) => {return (
           <div>
+            {data.filter(obj => obj.skU_ID === item.skU_ID).map(guitar => {return guitar.itemName})}
             {<SongRecommendations id={item.spotifyId} />}
           </div>)
         })
