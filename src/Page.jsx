@@ -7,10 +7,6 @@ const Page = (props) => {
 
     return (
         <div className="container"
-             style={{
-                 background: props.background,
-                 display: props.display ?? ''
-             }}
              onScroll={() => {
                  console.log("scroll")
              }}
@@ -22,7 +18,6 @@ const Page = (props) => {
                 <SearchBar/>
             </div>
             <div className="content">
-                <Guitar/>
             </div>
         </div>
     )
