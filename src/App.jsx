@@ -1,29 +1,47 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
-const searchString = "Gretsch";
+const searchString = "Rancher";
+const dropString = "Item Name";
+let guitars = [];
 
-
-
-function search(searchString){
-  return searchString;
+function search(searchString, dropString){
+  let results = new Set();
+  switch(dropString){
+    case "Item Name":
+      for (let i = 0; i < 501; i++){
+        if(guitars[i].itemName.search(searchString) != -1){
+          results.add(guitars[i]);
+        }
+      }
+      break;
+  }
+  return results;
 }
 
 function App() {
-  const [data, setData] = useState([]);
+  
+  const url = 'http://localhost:5000/guitars';
+  const [result, setResult] = useState(null);
 
   useEffect(() => {
-    const brandName = async () => {
-      await axios.get("http://localhost:5000/guitars")
-      .then(
-        res => setData(res.data))
-    }
-    brandName();
-  }, []);
+    axios.get(url)
+    .then((response)=>{
+      setResult(response.data)
+    })
+  }, [])
 
-  const [count, setCount] = useState(0)
-  search(searchString);
-  return <div>{data[0].brandName}</div>
-}
+  if (result === null){
+    return(<div>loading</div>)
+  } else {
+    guitars = result;
+  }
+
+  let searchResult = search(searchString, dropString);
+  console.log(searchResult);
+  for (let i = 0; i < searchResult.size; i++){
+    console.log([...searchResult][i].itemName);
+  }
+};
 
 export default App
