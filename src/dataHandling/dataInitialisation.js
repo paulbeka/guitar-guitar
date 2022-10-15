@@ -1,9 +1,9 @@
 
 
-export function getAttrib(guitars, attrib) {
+export function getAttrib(guitars) {
     let tempSet = new Set();
     for (let i = 0; i < guitars.length; i++) {
-        tempSet.add(attrib);
+        tempSet.add(guitars[i].colour);
     }
     return tempSet;
 }
