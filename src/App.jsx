@@ -4,7 +4,7 @@ import {ScrollMenu, VisibilityContext} from 'react-horizontal-scrolling-menu';
 import {Arrow} from "./Arrow";
 import SearchBar from "./components/SearchBar.jsx"
 import './App.css';
-import {getAttrib} from "./dataHandling/dataInitialisation.js";
+//import {getAttrib} from "./dataHandling/dataInitialisation.js";
 import {search} from "./dataHandling/Filtering.js"
 
 let guitars = []; //stores all guitars available
@@ -70,6 +70,7 @@ function App() {
                     selected={isItemSelected(item.skU_ID)} // checks whether the card is selected and passes the result to the constructor
                 />))
         } else { // if the user did not enter any search terms
+            console.log(guitars[0].skU_ID);
             output = guitars.map((item) => ( // set output to an array of cards, with each card holding information collected from the guitars array
                 // passes parameters to the card constructor defined further below, all in the exact same manner as above, just taking from the general guitars array rather than the searchResult one
                 <Card
@@ -86,22 +87,22 @@ function App() {
     }
     // this section renders the components
     return (
-        <div className="container"> // defines a container to keep everything in
-            <div className='Logo'> // a div that contains the guitarguitar logo
+        <div className="container"> <p hidden> // defines a container to keep everything in </p>
+            <div className='Logo'> <p hidden> // a div that contains the guitarguitar logo </p>
                 <img src='./src/assets/gglogo.png'/>
             </div>
-            <div className="Searchbar"> // a div containing the searchbar
-                <SearchBar setInput={setInput}/> //the setInput here passes the useState setter to the searchbar.jsx file to allow for transfer of the input string the user entered into the searchbar
+            <div className="Searchbar"> <p hidden> // a div containing the searchbar </p>
+                <SearchBar setInput={setInput}/> <p hidden> //the setInput here passes the useState setter to the searchbar.jsx file to allow for transfer of the input string the user entered into the searchbar </p>
             </div>
-            <div className="Dropdowns"> // a div that contains all the dropdown components
+            <div className="Dropdowns"> <p hidden> // a div that contains all the dropdown components </p>
                 <div className="Color"></div>
                 <div className="Pickup"></div>
                 <div className="Body-Shape"></div>
                 <div className="Search-Type"></div>
             </div>
-            <div className='ScrollMenu'> // a div that stores the scroll menu, the carousel component
-                <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}> // passes arrows in for navigation
-                    {output} // passes in constructed cards from earlier to be rendered
+            <div className='ScrollMenu'> <p hidden> // a div that stores the scroll menu, the carousel component </p>
+                <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}> <p hidden> // passes arrows in for navigation </p>
+                    {output} <p hidden> // passes in constructed cards from earlier to be rendered </p>
                 </ScrollMenu>
             </div>
         </div>
@@ -144,16 +145,16 @@ function Card({onClick, selected, title, itemId, image, brand}) {
             }}
             tabIndex={0} // RETURN TO THIS
         >
-            <div className="card"> // assigns a className for css styling
-                <img src={image} // passes the image uri into an img tag to render the image
+            <div className="card"> <p hidden> assigns a className for css styling </p>
+            <img src={image} // passes the image uri into an img tag to render the image
                     // defines the height and width of the image in terms of baseX or baseY multiplied by the scale factor
                      style={{
                          height: `${k * 300}px`,
                          width: `${k * 117}px`,
                      }}/>
-                <div>{title}</div> // adds a div to the card that displays the model name of the guitar
-                <div>{brand}</div> // adds a div to the card that displays the brand who made the guitar
-                <div>selected: {JSON.stringify(!!selected)}</div> // adds a div that displays whether the card is currently selected
+                <div>{title}</div> <p hidden> // adds a div to the card that displays the model name of the guitar </p>
+                <div>{brand}</div> <p hidden> // adds a div to the card that displays the brand who made the guitar </p>
+                <div>selected: {JSON.stringify(!!selected)}</div> <p hidden> // adds a div that displays whether the card is currently selected </p>
             </div>
         </div>
     )
