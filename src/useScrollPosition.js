@@ -1,5 +1,9 @@
+import {useEffect} from "react";
+import {useRecoilState} from "recoil";
+import {scrollPos} from "./components/States.jsx";
+
 const useScrollPosition = () => {
-    const [scrollPosition, setScrollPosition] = useState(0);
+    const [scrollPosition, setScrollPosition] = useRecoilState(scrollPos);
 
     useEffect(() => {
         const updatePosition = () => {

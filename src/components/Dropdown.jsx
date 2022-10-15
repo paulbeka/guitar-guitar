@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import {useRecoilState} from "recoil";
+import {selectedOne} from "./States.jsx";
 
 
 const Dropdown = (props) => {
-    const [selectedItem, setSelectedItem] = useState('');
+    const [selectedItem, setSelectedItem] = useRecoilState(selectedOne);
     const options = props.options.map((value, index) =>
         <MenuItem key={"option-"+ index} value={value}>{value}</MenuItem>
     );

@@ -6,6 +6,8 @@ import SearchBar from "./components/SearchBar.jsx"
 import styles from './SecondPage.module.css';
 //import {getAttrib} from "./dataHandling/dataInitialisation.js";
 import {search} from "./dataHandling/Filtering.js"
+import {inputVar, resultVar, selectedIDList} from "./components/States.jsx";
+import {useRecoilState} from "recoil";
 
 let guitars = []; //stores all guitars available
 let searchResult = []; //stores all guitars that match the search terms
@@ -16,9 +18,9 @@ let searching = false; //tracks whether the user has entered a search query
 //MAIN
 function SecondPage() {
     //use state vars
-    const [input, setInput] = useState(); //getter and setter for input var that stores the users search term(s)
-    const [selected, setSelected] = useState([]); //getter and setter for selected var that stores the id's of all currently selected cards
-    const [result, setResult] = useState(null); //getter and setter for result var which stores the data fetched via the axios server and guitarguitar api
+    const [input, setInput] = useRecoilState(inputVar); //getter and setter for input var that stores the users search term(s)
+    const [selected, setSelected] = useRecoilState(selectedIDList); //getter and setter for selected var that stores the id's of all currently selected cards
+    const [result, setResult] = useRecoilState(resultVar); //getter and setter for result var which stores the data fetched via the axios server and guitarguitar api
 
     //Runs whenever the user submits a search term
     useEffect(() => {

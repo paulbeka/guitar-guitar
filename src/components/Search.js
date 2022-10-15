@@ -1,12 +1,14 @@
 // src/components/Search.js
 
-import React, { useState } from 'react';
+import React from 'react';
 import Scroll from './Scroll';
 import SearchList from './SearchList';
+import {searchValue} from "./States.jsx";
+import {useRecoilState} from "recoil";
 
 function Search({ details }) {
 
-  const [searchField, setSearchField] = useState("");
+  const [searchField, setSearchField] = useRecoilState(searchValue);
 
   const filteredPersons = details.filter(
     person => {
