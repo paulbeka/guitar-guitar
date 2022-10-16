@@ -37,3 +37,22 @@ The first page won't include any filters as a visitor coming to an online e-comm
 **Fourth Feature:** We've built an Artificial Intelligent ChatBot using IBM Watson Assistant and integrated it with the website. We have included the ChatBot as it will make the user's experience on the website better and easier.
 
 ![Virtual Assistant](https://github.com/paulbeka/guitar-guitar/blob/readme/guitar-assistant1.gif) ![ChatBot](https://github.com/paulbeka/guitar-guitar/blob/readme/guitar-assistant2.gif)
+
+
+### Execution:
+
+Under 48 hours of the Hackathon, we were able to build and integrate all of these things together and demonstrate our project. 
+
+We were not able to do any kind of Responsive design in the limited given time.
+
+- First Page:
+
+![](https://github.com/paulbeka/guitar-guitar/blob/main/frontPage.gif)
+
+- Second Page:
+
+![](https://github.com/paulbeka/guitar-guitar/blob/main/secondPage.gif)
+
+- Dialogue for Spotify and Youtube Integration with Guitars:
+
+![](https://github.com/paulbeka/guitar-guitar/blob/main/dialogueWindowForSpotify.gif)
