@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 
-export const SongRecommendations = (props) => {
+const SongRecommendations = (props) => {
 
   const url_id = "https://open.spotify.com/embed/track/" + props.id + "?utm_source=generator";
 
@@ -12,3 +12,5 @@ export const SongRecommendations = (props) => {
     </div>
   )
 };
+
+export default SongRecommendations;

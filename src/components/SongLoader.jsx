@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { SongRecommendations } from './SongRecommendations';
 import { QuestionAnswerRounded } from '@mui/icons-material';
+import SongRecommendations from "./SongRecommendations.jsx";
 
 
 function getData(setData) {

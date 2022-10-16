@@ -8,6 +8,11 @@ import styles from './SecondPage.module.css';
 import {search} from "./dataHandling/Filtering.js"
 import {inputVar, resultVar, selectedIDList} from "./components/States.jsx";
 import {useRecoilState} from "recoil";
+import SongLoader from './components/SongLoader'
+import HeadphonesIcon from '@mui/icons-material/Headphones';
+import SearchIcon from "@mui/icons-material/Search.js";
+import {IconButton} from "@mui/material";
+import AlertDialog from "./components/AlertDialog.jsx";
 
 let guitars = []; //stores all guitars available
 let searchResult = []; //stores all guitars that match the search terms
@@ -45,7 +50,6 @@ function SecondPage() {
     }
     //Checks if an item is currently selected based off it's id
     function isItemSelected(id){
-        console.log(!!selected.find((el) => el === id)); //DEBUG LOG
         return !!selected.find((el) => el === id); //return true if a matching id is found in the selected array, otherwise return false
     }
     //handles the behaviour when the user clicks on a card
@@ -56,6 +60,10 @@ function SecondPage() {
             itemSelected ? currentSelected.filter((el) => el !== id) : currentSelected.concat(id) //If item is already selected remove item from the list of selected objects, otherwise add it to the list
         );
     };
+
+    const handleClick2 = (event) => {
+
+    }
 
 
     if (outputPrepped === false) { //if the output has not been prepared already
@@ -72,7 +80,6 @@ function SecondPage() {
                     selected={isItemSelected(item.skU_ID)} // checks whether the card is selected and passes the result to the constructor
                 />))
         } else { // if the user did not enter any search terms
-            console.log(guitars[0].skU_ID);
             output = guitars.map((item) => ( // set output to an array of cards, with each card holding information collected from the guitars array
                 // passes parameters to the card constructor defined further below, all in the exact same manner as above, just taking from the general guitars array rather than the searchResult one
                 <Card
@@ -157,6 +164,7 @@ function Card({onClick, selected, title, itemId, image, brand}) {
                 <div>{title}</div> <p hidden> // adds a div to the card that displays the model name of the guitar </p>
                 <div>{brand}</div> <p hidden> // adds a div to the card that displays the brand who made the guitar </p>
                 <div>selected: {JSON.stringify(!!selected)}</div> <p hidden> // adds a div that displays whether the card is currently selected </p>
+                <AlertDialog/>
             </div>
         </div>
     )
