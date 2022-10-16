@@ -14,6 +14,7 @@ const AlertDialog = (props) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
+        console.log(props.spotifyId)
         setOpen(true);
     };
 
@@ -22,7 +23,7 @@ const AlertDialog = (props) => {
     };
 
     return (
-        <div style={{display: props.spotifyId ? 'unset' : 'none'}} >
+        <div style={{display: props.spotifyId === 'invalid' ? 'none' : 'unset'}}>
             <IconButton onClick={(event) => handleClickOpen(event)} type="submit" aria-label="search">
                 <HeadphonesIcon/>
             </IconButton>
@@ -33,12 +34,10 @@ const AlertDialog = (props) => {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle>
-                    {"PLACEHOLDER"}
+                    {"Listen to associated song"}
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <SongRecommendations spotifyId={props.spotifyId}/>
-                    </DialogContentText>
+                    <SongRecommendations spotifyId={props.spotifyId}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>CLOSE</Button>

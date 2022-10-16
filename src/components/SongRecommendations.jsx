@@ -8,7 +8,7 @@ const SongRecommendations = (props) => {
 
   return (
     <div style={{}}>
-      <iframe src={url_id} style={{width:"50%", height:"352", border:"None", allow:"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture", loading:"lazy"}} />
+      <iframe src={url_id} style={{border:"None", allow:"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture", loading:"lazy"}} />
     </div>
   )
 };

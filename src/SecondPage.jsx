@@ -5,7 +5,7 @@ import {Arrow} from "./Arrow";
 import SearchBar from "./components/SearchBar.jsx"
 import styles from './SecondPage.module.css';
 import {search} from "./dataHandling/Filtering.js"
-import {GuitarsWithSongsVar, inputVar, resultVar, selectedIDList} from "./components/States.jsx";
+import {GuitarsWithSongsVar, inputVar, resultVar, resVar, selectedIDList} from "./components/States.jsx";
 import {useRecoilState} from "recoil";
 
 import AlertDialog from "./components/AlertDialog.jsx";
@@ -15,15 +15,17 @@ let searchResult = []; //stores all guitars that match the search terms
 let outputPrepped = false; //tracks whether output is ready for rendering
 let output = []; //stores the array of cards to be output
 let searching = false; //tracks whether the user has entered a search query
+let GuitarsWithSongs = [];
 
+//210726371990025 working skU_ID
 //MAIN
 function SecondPage() {
     //use state vars
-    const [GuitarsWithSongs, setGuitarsWithSongs] = useRecoilState(GuitarsWithSongsVar);
+    //const [GuitarsWithSongs, setGuitarsWithSongs] = useRecoilState(GuitarsWithSongsVar);
     const [input, setInput] = useRecoilState(inputVar); //getter and setter for input var that stores the users search term(s)
     const [selected, setSelected] = useRecoilState(selectedIDList); //getter and setter for selected var that stores the id's of all currently selected cards
     const [result, setResult] = useRecoilState(resultVar); //getter and setter for result var which stores the data fetched via the axios server and guitarguitar api
-
+    const [res, setRes] = useRecoilState(resVar);
     //Runs whenever the user submits a search term
     useEffect(() => {
         if (guitars.length !== 0) { //keeps this from running on start
@@ -41,19 +43,28 @@ function SecondPage() {
             });
         axios.get("http://localhost:5000/guitarswithsongs")
             .then(res => {
-                setGuitarsWithSongs(res.data);
+                setRes(res.data);
             })
     }, []) //makes this only run once
     if (result === null || GuitarsWithSongs === null) { //if result has not been recieved yet
         return (<div>Loading...</div>) //show loading message
     } else { //if a result has been recieved
         //TODO: Add the spotify field to the result state
-        for (let i = 0; i < GuitarsWithSongs.length; i++) {
-            const searchId = GuitarsWithSongs[i].skU_ID;
-            const guitarIndex = result.findIndex(g => g.skU_ID === searchId);
+        // for (let i = 0; i < GuitarsWithSongs.length; i++) {
+        //     const searchId = GuitarsWithSongs[i].skU_ID;
+        //     const guitarIndex = result.findIndex(g => g.skU_ID === searchId);
 
+        GuitarsWithSongs = res.map((item) => Object.assign({}, item));
+        guitars = result.map((item) => Object.assign({}, item));; //store the result in guitars
+        for (let i = 0; i < GuitarsWithSongs.length; i++) {
+            const gws_index = guitars.findIndex((guitar) => guitar.skU_ID === GuitarsWithSongs[i].skU_ID)
+            const spotifyId = {spotifyId: GuitarsWithSongs[i].spotifyId};
+            //console.log(gws_index)
+            //guitars[gws_index] = {...guitars[gws_index], ...spotifyId};
+            //Object.assign(guitars[gws_index],spotifyId);
+            guitars[gws_index].spotifyId = GuitarsWithSongs[i].spotifyId;
+            console.log(guitars[gws_index]);
         }
-        guitars = result; //store the result in guitars
     }
     //Checks if an item is currently selected based off it's id
     function isItemSelected(id){
@@ -124,7 +135,7 @@ function SecondPage() {
                 </ScrollMenu>
             </div>
         </div>
-    )
+    );
 }
 
 //Function that constructs an arrow that can be used to navigate left
@@ -173,7 +184,7 @@ function Card({onClick, selected, title, itemId, image, brand, spotifyId}) {
                 <div>{title}</div> <p hidden> // adds a div to the card that displays the model name of the guitar </p>
                 <div>{brand}</div> <p hidden> // adds a div to the card that displays the brand who made the guitar </p>
                 <div>selected: {JSON.stringify(!!selected)}</div> <p hidden> // adds a div that displays whether the card is currently selected </p>
-                <AlertDialog spotifyId={spotifyId ?? '0hCB0YR03f6AmQaHbwWDe8?si=e4d65bbb75c14d8d'}/>
+                <AlertDialog spotifyId={spotifyId ?? 'invalid'}/>
             </div>
         </div>
     )

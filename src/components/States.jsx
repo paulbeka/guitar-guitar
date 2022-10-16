@@ -37,6 +37,11 @@ export const resultVar = atom({
     default: null,
 });
 
+export const resVar = atom({
+    key: 'resVar',
+    default: null,
+})
+
 export const GuitarsWithSongsVar = atom({
     key: 'GuitarsWithSongsVar',
     default: null,
