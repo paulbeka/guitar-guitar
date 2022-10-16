@@ -63,6 +63,7 @@ function SecondPage() {
             //guitars[gws_index] = {...guitars[gws_index], ...spotifyId};
             //Object.assign(guitars[gws_index],spotifyId);
             guitars[gws_index].spotifyId = GuitarsWithSongs[i].spotifyId;
+            guitars[gws_index].youtubeUrl = GuitarsWithSongs[i].youtubeUrl;
             console.log(guitars[gws_index]);
         }
     }
@@ -97,6 +98,7 @@ function SecondPage() {
                     onClick={handleClick(item.skU_ID)} // makes the handleClick function execute whenever a card is clicked, passing the id of the card in
                     selected={isItemSelected(item.skU_ID)} // checks whether the card is selected and passes the result to the constructor
                     spotifyId={item.spotifyId}
+                    youtubeUrl={item.youtubeUrl}
                 />))
         } else { // if the user did not enter any search terms
             output = guitars.map((item) => ( // set output to an array of cards, with each card holding information collected from the guitars array
@@ -110,6 +112,7 @@ function SecondPage() {
                     onClick={handleClick(item.skU_ID)}
                     selected={isItemSelected(item.skU_ID)}
                     spotifyId={item.spotifyId}
+                    youtubeUrl={item.youtubeUrl}
                 />))
         }
         outputPrepped = true; // after setting the output, changes the value of outputPrepped to show that the output has been prepared
@@ -163,7 +166,7 @@ function RightArrow() {
 }
 
 // defines the card constructor that is used to generate the array of cards to be rendered in the scroll menu
-function Card({onClick, selected, title, itemId, image, brand, spotifyId}) {
+function Card({onClick, selected, title, itemId, image, brand, spotifyId, youtubeUrl}) {
     const visibility = React.useContext(VisibilityContext); // allows the program to alter the card's visibility
     const k = 1; // defines a constant to use as a scale factor
     return (
@@ -184,7 +187,7 @@ function Card({onClick, selected, title, itemId, image, brand, spotifyId}) {
                 <div>{title}</div> <p hidden> // adds a div to the card that displays the model name of the guitar </p>
                 <div>{brand}</div> <p hidden> // adds a div to the card that displays the brand who made the guitar </p>
                 <div>selected: {JSON.stringify(!!selected)}</div> <p hidden> // adds a div that displays whether the card is currently selected </p>
-                <AlertDialog spotifyId={spotifyId ?? 'invalid'}/>
+                <AlertDialog spotifyId={spotifyId ?? 'invalid'} youtubeUrl={youtubeUrl ?? 'invalid'}/>
             </div>
         </div>
     )

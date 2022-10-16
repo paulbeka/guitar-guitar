@@ -37,7 +37,7 @@ const AlertDialog = (props) => {
                     {"Listen to associated song"}
                 </DialogTitle>
                 <DialogContent>
-                    <SongRecommendations spotifyId={props.spotifyId}/>
+                    <SongRecommendations spotifyId={props.spotifyId} youtubeUrl={props.youtubeUrl}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>CLOSE</Button>
