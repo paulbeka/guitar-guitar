@@ -9,6 +9,7 @@ guitar-guitar store front
 - [ ] Dialogue Play through with selected Guitars
 - [ ] Chat-bot / Virtual Assistant
 - [ ] Filter (In a different manner - We gotta look how to design our filter view)
+- [ ] Get Search Functionality working
 
 If we've got time: 
 - [ ] Guitars with songs kinda thing!!

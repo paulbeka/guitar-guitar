@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const SongRecommendations = (props) => {
 
-  const url_id = "https://open.spotify.com/embed/track/" + props.id + "?utm_source=generator";
+  const url_id = "https://open.spotify.com/embed/track/" + props.spotifyId + "?utm_source=generator";
 
   return (
     <div style={{}}>

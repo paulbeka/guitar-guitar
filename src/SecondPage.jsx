@@ -4,14 +4,10 @@ import {ScrollMenu, VisibilityContext} from 'react-horizontal-scrolling-menu';
 import {Arrow} from "./Arrow";
 import SearchBar from "./components/SearchBar.jsx"
 import styles from './SecondPage.module.css';
-//import {getAttrib} from "./dataHandling/dataInitialisation.js";
 import {search} from "./dataHandling/Filtering.js"
-import {inputVar, resultVar, selectedIDList} from "./components/States.jsx";
+import {GuitarsWithSongsVar, inputVar, resultVar, selectedIDList} from "./components/States.jsx";
 import {useRecoilState} from "recoil";
-import SongLoader from './components/SongLoader'
-import HeadphonesIcon from '@mui/icons-material/Headphones';
-import SearchIcon from "@mui/icons-material/Search.js";
-import {IconButton} from "@mui/material";
+
 import AlertDialog from "./components/AlertDialog.jsx";
 
 let guitars = []; //stores all guitars available
@@ -23,6 +19,7 @@ let searching = false; //tracks whether the user has entered a search query
 //MAIN
 function SecondPage() {
     //use state vars
+    const [GuitarsWithSongs, setGuitarsWithSongs] = useRecoilState(GuitarsWithSongsVar);
     const [input, setInput] = useRecoilState(inputVar); //getter and setter for input var that stores the users search term(s)
     const [selected, setSelected] = useRecoilState(selectedIDList); //getter and setter for selected var that stores the id's of all currently selected cards
     const [result, setResult] = useRecoilState(resultVar); //getter and setter for result var which stores the data fetched via the axios server and guitarguitar api
@@ -41,11 +38,21 @@ function SecondPage() {
         axios.get('http://localhost:5000/guitars')
             .then((response) => {
                 setResult(response.data);
+            });
+        axios.get("http://localhost:5000/guitarswithsongs")
+            .then(res => {
+                setGuitarsWithSongs(res.data);
             })
     }, []) //makes this only run once
-    if (result === null) { //if result has not been recieved yet
+    if (result === null || GuitarsWithSongs === null) { //if result has not been recieved yet
         return (<div>Loading...</div>) //show loading message
     } else { //if a result has been recieved
+        //TODO: Add the spotify field to the result state
+        for (let i = 0; i < GuitarsWithSongs.length; i++) {
+            const searchId = GuitarsWithSongs[i].skU_ID;
+            const guitarIndex = result.findIndex(g => g.skU_ID === searchId);
+
+        }
         guitars = result; //store the result in guitars
     }
     //Checks if an item is currently selected based off it's id
@@ -78,6 +85,7 @@ function SecondPage() {
                     key={item.skU_ID} //use the sku id as a key
                     onClick={handleClick(item.skU_ID)} // makes the handleClick function execute whenever a card is clicked, passing the id of the card in
                     selected={isItemSelected(item.skU_ID)} // checks whether the card is selected and passes the result to the constructor
+                    spotifyId={item.spotifyId}
                 />))
         } else { // if the user did not enter any search terms
             output = guitars.map((item) => ( // set output to an array of cards, with each card holding information collected from the guitars array
@@ -90,6 +98,7 @@ function SecondPage() {
                     key={item.skU_ID}
                     onClick={handleClick(item.skU_ID)}
                     selected={isItemSelected(item.skU_ID)}
+                    spotifyId={item.spotifyId}
                 />))
         }
         outputPrepped = true; // after setting the output, changes the value of outputPrepped to show that the output has been prepared
@@ -143,7 +152,7 @@ function RightArrow() {
 }
 
 // defines the card constructor that is used to generate the array of cards to be rendered in the scroll menu
-function Card({onClick, selected, title, itemId, image, brand}) {
+function Card({onClick, selected, title, itemId, image, brand, spotifyId}) {
     const visibility = React.useContext(VisibilityContext); // allows the program to alter the card's visibility
     const k = 1; // defines a constant to use as a scale factor
     return (
@@ -164,7 +173,7 @@ function Card({onClick, selected, title, itemId, image, brand}) {
                 <div>{title}</div> <p hidden> // adds a div to the card that displays the model name of the guitar </p>
                 <div>{brand}</div> <p hidden> // adds a div to the card that displays the brand who made the guitar </p>
                 <div>selected: {JSON.stringify(!!selected)}</div> <p hidden> // adds a div that displays whether the card is currently selected </p>
-                <AlertDialog/>
+                <AlertDialog spotifyId={spotifyId ?? '0hCB0YR03f6AmQaHbwWDe8?si=e4d65bbb75c14d8d'}/>
             </div>
         </div>
     )
