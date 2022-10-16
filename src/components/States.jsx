@@ -36,3 +36,8 @@ export const resultVar = atom({
     key: 'fetchedDataResult',
     default: null,
 });
+
+export const GuitarsWithSongsVar = atom({
+    key: 'GuitarsWithSongsVar',
+    default: null,
+})

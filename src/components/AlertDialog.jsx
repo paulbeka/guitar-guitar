@@ -10,7 +10,7 @@ import {IconButton} from "@mui/material";
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import SongRecommendations from "./SongRecommendations.jsx";
 
-export default function AlertDialog() {
+const AlertDialog = (props) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -22,7 +22,7 @@ export default function AlertDialog() {
     };
 
     return (
-        <div>
+        <div style={{display: props.spotifyId ? 'unset' : 'none'}} >
             <IconButton onClick={(event) => handleClickOpen(event)} type="submit" aria-label="search">
                 <HeadphonesIcon/>
             </IconButton>
@@ -37,7 +37,7 @@ export default function AlertDialog() {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        <SongRecommendations id={""}/>
+                        <SongRecommendations spotifyId={props.spotifyId}/>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -47,3 +47,5 @@ export default function AlertDialog() {
         </div>
     );
 }
+
+export default AlertDialog;
