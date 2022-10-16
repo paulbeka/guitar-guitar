@@ -18,7 +18,13 @@ export function Arrow({
                 justifyContent: "center",
                 right: "1%",
                 opacity: disabled ? "0" : "1",
-                userSelect: "none"
+                userSelect: "none",
+                minHeight: '50px',
+                minWidth: '50px',
+                alignSelf:'center',
+                borderRadius: '50%',
+                margin: '0 10px',
+                backgroundColor: '#EAB4A9',
             }}
         >
             {children}

@@ -148,7 +148,6 @@ function LeftArrow() {
     // renders the arrow, disabling and hiding it if the leftmost card is visible (as the user can't go any further left)
     return (
         <Arrow disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
-            Left
         </Arrow>
     );
 }
@@ -160,7 +159,6 @@ function RightArrow() {
     // renders the arrow, disabling and hiding it if the rightmost card is visible (as the user can't go any further right)
     return (
         <Arrow disabled={isLastItemVisible} onClick={() => scrollNext()}>
-            Right
         </Arrow>
     );
 }
@@ -186,7 +184,6 @@ function Card({onClick, selected, title, itemId, image, brand, spotifyId, youtub
                      }}/>
                 <div>{title}</div> <p hidden> // adds a div to the card that displays the model name of the guitar </p>
                 <div>{brand}</div> <p hidden> // adds a div to the card that displays the brand who made the guitar </p>
-                <div>selected: {JSON.stringify(!!selected)}</div> <p hidden> // adds a div that displays whether the card is currently selected </p>
                 <AlertDialog spotifyId={spotifyId ?? 'invalid'} youtubeUrl={youtubeUrl ?? 'invalid'}/>
             </div>
         </div>

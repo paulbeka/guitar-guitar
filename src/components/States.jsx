@@ -46,3 +46,8 @@ export const GuitarsWithSongsVar = atom({
     key: 'GuitarsWithSongsVar',
     default: null,
 })
+
+export const RedirectVar = atom({
+    key: 'RedirectVar',
+    default: false,
+})
